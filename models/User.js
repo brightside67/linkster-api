@@ -1,5 +1,8 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
+/**
+ * Mongo USER schema
+ * */
 const UserSchema = mongoose.Schema(
 	{
 		slug: {
@@ -33,10 +36,18 @@ const UserSchema = mongoose.Schema(
 			type: [String],
 			default: ["Uncategorized"],
 		},
+		jwt: {
+			type: String,
+			default: "",
+		},
+		emailConfirmed: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	{ timestamps: true }
 );
 
 const User = mongoose.model("User", UserSchema);
 
-export default User;
+module.exports = User;
