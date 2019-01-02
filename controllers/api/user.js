@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 const User = mongoose.model("User");
 
@@ -43,7 +44,6 @@ exports.loginUser = (req, res) => {
 							message:
 								"Cant save jwt token to the database",
 						});
-
 					res.status(200).json({
 						success: true,
 						user,
@@ -62,4 +62,36 @@ exports.loginUser = (req, res) => {
 				message: `There is an error: ${err}`,
 			});
 		});
+};
+
+exports.userLogout = (req, res) => {
+	jwt.verify(
+		req.body.token,
+		process.env.SECRET,
+		(err, decoded) => {
+			if (err)
+				res.status(400).json({
+					success: false,
+					message: "Cant login, invalid session token",
+				});
+			User.findOne({ email: decoded.email }).then(user => {
+				if (!user)
+					res.status(400).json({
+						success: false,
+						message: "There is no active session",
+					});
+				user.jwt = ""; // eslint-disable-line no-param-reassign
+				user.save().then(error => {
+					if (!error)
+						res.status(400).json({
+							success: false,
+							message: `There is no active session:${error}`,
+						});
+					res
+						.status(200)
+						.json({ success: true, message: "Logout" });
+				});
+			});
+		}
+	);
 };
