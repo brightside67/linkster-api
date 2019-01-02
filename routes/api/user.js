@@ -13,7 +13,8 @@ router.post("/", userAPI.createNewUser);
  * */
 router.post("/login", userAPI.loginUser);
 
-/** POST /api/user/logout
+/**
+ * POST /api/user/logout
  * LOGOUT USER
  */
 router.post("/logout", userAPI.userLogout);
