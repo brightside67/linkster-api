@@ -56,8 +56,10 @@ const UserSchema = mongoose.Schema(
 	{ timestamps: true }
 );
 
-/** Generate hash password from
+/**
+ * Generate hash password from
  * given password from POST /api/user
+ * @params {password}
  * */
 UserSchema.methods.setPassword = function setPassword(
 	password
@@ -65,8 +67,12 @@ UserSchema.methods.setPassword = function setPassword(
 	this.passwordHash = bcrypt.hashSync(password, 10);
 };
 
-/** Check if password from POST /api/user/login
- * credentials is valid */
+/**
+ * Check if password from POST /api/user/login
+ * credentials is valid
+ * @params {password}
+ * return {Boolean}
+ * */
 UserSchema.methods.isPasswordValid = function isPasswordValid(
 	password
 ) {
@@ -75,6 +81,7 @@ UserSchema.methods.isPasswordValid = function isPasswordValid(
 
 /**
  * Generate JWT token
+ * return {jwt.sign Object}
  * */
 UserSchema.methods.generateJWT = function generateJWT() {
 	return jwt.sign(
