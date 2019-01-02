@@ -25,3 +25,27 @@ exports.createNewUser = (req, res) => {
 			});
 		});
 };
+
+/**
+ * LOGIN User with credentials
+ * */
+exports.loginUser = (req, res) => {
+	const { email, password } = req.body;
+	User.findOne({ email })
+		.then(user => {
+			if (user && user.isPasswordValid(password)) {
+				res.status(200).json({ success: true, user });
+			} else {
+				res.status(301).json({
+					success: false,
+					message: "Wrong credentials",
+				});
+			}
+		})
+		.catch(err => {
+			res.status(301).json({
+				success: false,
+				message: `There is an error: ${err}`,
+			});
+		});
+};

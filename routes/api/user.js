@@ -7,5 +7,10 @@ const router = express.Router();
  * CREATE NEW USER
  * */
 router.post("/", userAPI.createNewUser);
+/**
+ * POST /api/user/login
+ * TRY TO LOGIN WITH CREDENTIALS
+ * */
+router.post("/login", userAPI.loginUser);
 
 module.exports = router;

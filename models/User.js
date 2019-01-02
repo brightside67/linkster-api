@@ -64,6 +64,14 @@ UserSchema.methods.setPassword = function setPassword(
 	this.passwordHash = bcrypt.hashSync(password, 10);
 };
 
+/** Check if password from POST /api/user/login
+ * credentials is valid */
+UserSchema.methods.isPasswordValid = function isPasswordValid(
+	password
+) {
+	return bcrypt.compareSync(password, this.passwordHash);
+};
+
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;
