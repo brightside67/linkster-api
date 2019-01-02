@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 /**
  * Mongo USER schema
@@ -70,6 +71,19 @@ UserSchema.methods.isPasswordValid = function isPasswordValid(
 	password
 ) {
 	return bcrypt.compareSync(password, this.passwordHash);
+};
+
+/**
+ * Generate JWT token
+ * */
+UserSchema.methods.generateJWT = function generateJWT() {
+	return jwt.sign(
+		{
+			email: this.email,
+			username: this.username,
+		},
+		process.env.SECRET
+	);
 };
 
 const User = mongoose.model("User", UserSchema);

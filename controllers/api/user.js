@@ -34,7 +34,21 @@ exports.loginUser = (req, res) => {
 	User.findOne({ email })
 		.then(user => {
 			if (user && user.isPasswordValid(password)) {
-				res.status(200).json({ success: true, user });
+				const token = user.generateJWT();
+				user.jwt = token; // eslint-disable-line no-param-reassign
+				user.save().then(err => {
+					if (!err)
+						res.status(400).json({
+							success: false,
+							message:
+								"Cant save jwt token to the database",
+						});
+
+					res.status(200).json({
+						success: true,
+						user,
+					});
+				});
 			} else {
 				res.status(301).json({
 					success: false,
