@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 /**
  * Mongo USER schema
@@ -8,10 +9,11 @@ const UserSchema = mongoose.Schema(
 		slug: {
 			type: String,
 			unique: true,
+			lowercase: true,
 			required: true,
 			trim: true,
 		},
-		password: {
+		passwordHash: {
 			type: String,
 			minlength: 5,
 			required: true,
@@ -19,6 +21,7 @@ const UserSchema = mongoose.Schema(
 		email: {
 			type: String,
 			unique: true,
+			index: true,
 			required: true,
 			trim: true,
 		},
@@ -51,6 +54,15 @@ const UserSchema = mongoose.Schema(
 	},
 	{ timestamps: true }
 );
+
+/** Generate hash password from
+ * given password from POST /api/user
+ * */
+UserSchema.methods.setPassword = function setPassword(
+	password
+) {
+	this.passwordHash = bcrypt.hashSync(password, 10);
+};
 
 const User = mongoose.model("User", UserSchema);
 

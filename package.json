@@ -20,7 +20,7 @@
     "nodemon": "^1.18.9"
   },
   "dependencies": {
-    "express": "^4.16.0",
+    "bcrypt": "^3.0.3",
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
     "eslint-config-airbnb": "^15.1.0",
@@ -29,6 +29,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.1",
+    "express": "^4.16.0",
     "mongoose": "^5.4.1",
     "prettier": "^1.15.3"
   },

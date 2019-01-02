@@ -7,6 +7,7 @@ const User = mongoose.model("User");
  * */
 exports.createNewUser = (req, res) => {
 	const userItem = new User(req.body);
+	userItem.setPassword(req.body.password);
 	userItem
 		.save()
 		.then(user => {
