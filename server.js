@@ -23,7 +23,7 @@ app.set("view engine", "pug");
  * Start express server
  */
 app.listen(PORT, () => {
-	console.log(`The server is running on port ${PORT}`);
+	console.log(`The server is running on port -- ${PORT}`);
 });
 
 module.exports = app;
