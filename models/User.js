@@ -59,7 +59,9 @@ const UserSchema = mongoose.Schema(
 /**
  * Generate hash password from
  * given password from POST /api/user
- * @params {password}
+ *
+ * @method setPassword
+ * @param {password}
  * */
 UserSchema.methods.setPassword = function setPassword(
 	password
@@ -70,8 +72,10 @@ UserSchema.methods.setPassword = function setPassword(
 /**
  * Check if password from POST /api/user/login
  * credentials is valid
- * @params {password}
- * return {Boolean}
+ *
+ * @method isPasswordValid
+ * @param {password} String
+ * @return {Boolean}
  * */
 UserSchema.methods.isPasswordValid = function isPasswordValid(
 	password
@@ -81,7 +85,9 @@ UserSchema.methods.isPasswordValid = function isPasswordValid(
 
 /**
  * Generate JWT token
- * return {jwt.sign Object}
+ *
+ * @method generateJWT
+ * @return {jwt.sign Object}
  * */
 UserSchema.methods.generateJWT = function generateJWT() {
 	return jwt.sign(
