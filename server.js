@@ -18,6 +18,7 @@ mongoose.connect(
 
 // require MODELS
 require("./models/User");
+require("./models/Link");
 
 // middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,6 +32,7 @@ app.set("view engine", "pug");
  * Routes API
  * */
 app.use("/api/user", require("./routes/api/user"));
+app.use("/api/link", require("./routes/api/link"));
 
 // Otherwise this was a really bad error we didn't expect! Shoot eh
 if (app.get("env") === "development") {
