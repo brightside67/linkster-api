@@ -36,7 +36,7 @@ exports.createNewLink = async (req, res) => {
 };
 
 /**
- * @POST /api/link/update
+ * @PUT /api/link/update
  * UPDATE LINK BY LINK ID
  *
  * @method updateLink

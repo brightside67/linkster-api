@@ -121,3 +121,36 @@ exports.userLogout = (req, res) => {
 		}
 	);
 };
+
+/**
+ * @PUT /api/user
+ * UPDATE USER INFO BY USER EMAIL
+ *
+ * @method userUpdate
+ * @params {req, res}
+ */
+exports.userUpdate = async (req, res) => {
+	const { username, description } = req.body;
+	const userItem = await User.findOneAndUpdate(
+		{ email: req.body.email },
+		{
+			username,
+			description,
+		},
+		{ new: true }
+	);
+	if (!userItem) {
+		logger.info(
+			`User ${
+				req.body.email
+			} tryed to update profile, but failed`
+		);
+
+		res.status(400).json({
+			success: false,
+			message: "There is no such user in database",
+		});
+	}
+
+	res.status(200).json({ success: true, user: userItem });
+};

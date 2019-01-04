@@ -22,4 +22,10 @@ router.post("/login", catchErrors(userAPI.loginUser));
  */
 router.post("/logout", userAPI.userLogout);
 
+/**
+ * @PUT /api/user/
+ * UPDATE USER
+ */
+router.put("/", userAPI.userUpdate);
+
 module.exports = router;
